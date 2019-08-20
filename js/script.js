@@ -22,7 +22,7 @@ $(function() {
 
 function Slider(obj) {
 
-    var slider = this;
+    var slider = $(this);
 
     slider.buttons = $(obj.buttons);
     slider.stopBtn = $(obj.stopBtn);
