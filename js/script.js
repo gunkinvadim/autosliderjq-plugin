@@ -1,4 +1,4 @@
-window.onload = function() {
+$(function() {
 
     slider1 = new Slider({
         buttons: '.gallery-1 .button-action',
@@ -9,72 +9,69 @@ window.onload = function() {
         delayInput: '.gallery-1 .delay-input',
     });
 
-    // slider2 = new Slider({
-    //     buttons: '.gallery-2 .button-action',
-    //     stopBtn: '.gallery-2 .button-action[data-action="stop"]',
-    //     autoNextBtn: '.gallery-2 .button-action[data-action="next-auto"]',
-    //     autoPrevBtn: '.gallery-2 .button-action[data-action="prev-auto"]',
-    //     images: '.gallery-2 .photos img',
-    //     delayInput: '.gallery-2 .delay-input',
-    // });
-};
+    slider2 = new Slider({
+        buttons: '.gallery-2 .button-action',
+        stopBtn: '.gallery-2 .button-action[data-action="stop"]',
+        autoNextBtn: '.gallery-2 .button-action[data-action="next-auto"]',
+        autoPrevBtn: '.gallery-2 .button-action[data-action="prev-auto"]',
+        images: '.gallery-2 .photos img',
+        delayInput: '.gallery-2 .delay-input',
+    });
+});
+
 
 function Slider(obj) {
 
     var slider = this;
 
-    slider.buttons = document.querySelectorAll(obj.buttons);
-    slider.stopBtn = document.querySelector(obj.stopBtn);
-    slider.autoNextBtn = document.querySelector(obj.autoNextBtn);
-    slider.autoPrevBtn = document.querySelector(obj.autoPrevBtn);
-    slider.images = document.querySelectorAll(obj.images);
-    slider.delayInput = document.querySelector(obj.delayInput);
+    slider.buttons = $(obj.buttons);
+    slider.stopBtn = $(obj.stopBtn);
+    slider.autoNextBtn = $(obj.autoNextBtn);
+    slider.autoPrevBtn = $(obj.autoPrevBtn);
+    slider.images = $(obj.images);
+    slider.delayInput = $(obj.delayInput);
 
-    slider.delay = parseInt(slider.delayInput.value) * 1000;
+    slider.delay = parseInt(slider.delayInput.val() * 1000);
     slider.i = 0;
     slider.action = 'stop';
     
 
+    slider.delayInput.on('change', function() {
+        slider.delay = parseInt(slider.delayInput.val() * 1000);
+    });
 
-    slider.delayInput.onchange = function() {
-        slider.delay = parseInt(slider.delayInput.value) * 1000;
-    };
+    slider.buttons.on('click', function() {
+        var buttonAction = $(this).attr('data-action');
+        if (buttonAction == 'prev') {
+            slider.action = 'prev';
+            slider.prev();
 
-    for (i = 0; i < slider.buttons.length; i++) {
+        } else if (buttonAction == 'next') {
+            slider.action = 'next';
+            slider.next();
 
-        slider.buttons[i].onclick = function() {
-            var buttonAction = this.getAttribute('data-action');
-            if (buttonAction == 'prev') {
-                slider.action = 'prev';
-                slider.prev();
+        } else if (buttonAction == 'prev-auto') {
+            slider.action = 'autoprev';
+            slider.prev(autoPrev);
+            var autoPrev = setInterval(function() {slider.prev(autoPrev, autoNext);}, slider.delay);
+    
+            slider.buttonsDisable();
+            slider.autoNextBtn.prop('disabled', false);
+            slider.stopBtn.prop('disabled', false);
 
-            } else if (buttonAction == 'next') {
-                slider.action = 'next';
-                slider.next();
+        } else if (buttonAction == 'next-auto') {
+            slider.action = 'autonext';
+            slider.next(autoNext);
+            var autoNext = setInterval(function() {slider.next(autoPrev, autoNext);}, slider.delay);
+    
+            slider.buttonsDisable();
+            slider.autoPrevBtn.prop('disabled', false);
+            slider.stopBtn.prop('disabled', false);
 
-            } else if (buttonAction == 'prev-auto') {
-                slider.action = 'autoprev';
-                slider.prev(autoPrev);
-                var autoPrev = setInterval(function() {slider.prev(autoPrev, autoNext);}, slider.delay);
-        
-                slider.buttonsDisable();
-                slider.autoNextBtn.disabled = false;
-                slider.stopBtn.disabled = false;
-
-            } else if (buttonAction == 'next-auto') {
-                slider.action = 'autonext';
-                slider.next(autoNext);
-                var autoNext = setInterval(function() {slider.next(autoPrev, autoNext);}, slider.delay);
-        
-                slider.buttonsDisable();
-                slider.autoPrevBtn.disabled = false;
-                slider.stopBtn.disabled = false;
-
-            } else if (buttonAction == 'stop') {
-                slider.action = 'stop';
-            }
-        };
-    }
+        } else if (buttonAction == 'stop') {
+            slider.action = 'stop';
+        }
+    });
 
 
     slider.prev = function(autoPrev, autoNext) {
@@ -86,14 +83,14 @@ function Slider(obj) {
             return;
         }
 
-        slider.images[slider.i].classList.remove('showed');
+        slider.images.eq(slider.i).removeClass('showed');
         slider.i--;
         
         if(slider.i < 0){
             slider.i = slider.images.length - 1;
         }
         
-        slider.images[slider.i].classList.add('showed');
+        slider.images.eq(slider.i).addClass('showed');
     };
 
     slider.next = function(autoPrev, autoNext) {
@@ -105,14 +102,14 @@ function Slider(obj) {
             return;
         }
 
-        slider.images[slider.i].classList.remove('showed');
+        slider.images.eq(slider.i).removeClass('showed');
         slider.i++;
         
         if(slider.i >= slider.images.length){
             slider.i = 0;
         }
         
-        slider.images[slider.i].classList.add('showed');
+        slider.images.eq(slider.i).addClass('showed');
     };
 
     slider.stop = function(autoPrev, autoNext) {
@@ -120,20 +117,16 @@ function Slider(obj) {
         clearInterval(autoNext);
         
         slider.buttonsEnable();
-        slider.stopBtn.disabled = true;
+        slider.stopBtn.prop('disabled', true);
     };
 
     slider.buttonsDisable = function() {
-        for (var i = 0; i < slider.buttons.length; i++) {
-            slider.buttons[i].disabled = true;
-            slider.delayInput.disabled = true;
-        }
+        slider.buttons.prop('disabled', true);
+        slider.delayInput.prop('disabled', true);
     };
 
     slider.buttonsEnable = function() {
-        for (var i = 0; i < slider.buttons.length; i++) {
-            slider.buttons[i].disabled = false;
-            slider.delayInput.disabled = false;
-        }
+        slider.buttons.prop('disabled', false);
+        slider.delayInput.prop('disabled', false);
     };
 }
