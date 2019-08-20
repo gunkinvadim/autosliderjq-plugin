@@ -9,14 +9,14 @@ $(function() {
         delayInput: '.gallery-1 .delay-input',
     });
 
-    slider2 = new Slider({
-        buttons: '.gallery-2 .button-action',
-        stopBtn: '.gallery-2 .button-action[data-action="stop"]',
-        autoNextBtn: '.gallery-2 .button-action[data-action="next-auto"]',
-        autoPrevBtn: '.gallery-2 .button-action[data-action="prev-auto"]',
-        images: '.gallery-2 .photos img',
-        delayInput: '.gallery-2 .delay-input',
-    });
+    // slider2 = new Slider({
+    //     buttons: '.gallery-2 .button-action',
+    //     stopBtn: '.gallery-2 .button-action[data-action="stop"]',
+    //     autoNextBtn: '.gallery-2 .button-action[data-action="next-auto"]',
+    //     autoPrevBtn: '.gallery-2 .button-action[data-action="prev-auto"]',
+    //     images: '.gallery-2 .photos img',
+    //     delayInput: '.gallery-2 .delay-input',
+    // });
 });
 
 
