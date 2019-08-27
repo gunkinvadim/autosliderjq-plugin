@@ -4,7 +4,7 @@ html, body, ul, li{
 }
 
 .gallery{
-    width: 860px;
+    /* width: 860px; */
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 50px;
@@ -13,20 +13,23 @@ html, body, ul, li{
 
 .photos{
     position: relative;
+    margin-left: auto;
+    margin-right: auto;
     height: 670px;
+    width: 860px;
+    overflow: hidden;
 }
 
 .photos img{
+    display: none;
     width: 100%;
     position: absolute;
     left: 0;
-    opacity: 0;
-    transition: opacity 1s;
     border-radius: 5px;
 }
 
-.photos img.showed{
-    opacity: 1;
+.photos img:first-child{
+    display: block
 }
 
 .input-container {

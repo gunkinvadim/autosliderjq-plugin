@@ -37,7 +37,6 @@ function Slider(obj) {
     slider.action = 'stop';
 
 
-
     slider.prev = function(autoPrev, autoNext) {
         if (slider.action == 'stop') {
             slider.stop(autoPrev, autoNext);
@@ -47,14 +46,21 @@ function Slider(obj) {
             return;
         }
 
-        slider.images.eq(slider.i).removeClass('showed');
+        slider.images.eq(slider.i).animate({
+            left: '100%'
+        }, 500);
         slider.i--;
         
         if(slider.i < 0){
             slider.i = slider.images.length - 1;
         }
         
-        slider.images.eq(slider.i).addClass('showed');
+        slider.images.eq(slider.i).css({
+            display: 'block',
+            left: '-100%'
+        }).animate({
+            left: 0
+        }, 490);
     };
 
     slider.next = function(autoPrev, autoNext) {
@@ -66,14 +72,21 @@ function Slider(obj) {
             return;
         }
 
-        slider.images.eq(slider.i).removeClass('showed');
+        slider.images.eq(slider.i).animate({
+            left: '-100%'
+        }, 500);
         slider.i++;
         
         if(slider.i >= slider.images.length){
             slider.i = 0;
         }
         
-        slider.images.eq(slider.i).addClass('showed');
+        slider.images.eq(slider.i).css({
+            display: 'block',
+            left: '100%'
+        }).animate({
+            left: 0
+        }, 490);
     };
 
     slider.stop = function(autoPrev, autoNext) {
@@ -97,6 +110,9 @@ function Slider(obj) {
 
 
     slider.delayInput.on('change', function() {
+        if (isNaN(slider.delayInput.val()) == true || slider.delayInput.val() <= 0) {
+            slider.delayInput.val(1);
+        }
         slider.delay = parseInt(slider.delayInput.val() * 1000);
     });
 
