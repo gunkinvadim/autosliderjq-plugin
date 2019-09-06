@@ -92,7 +92,7 @@
             });
         }
 
-        function prevAuto(autoPrev, autoNext) {
+        function prevAuto(autoNext) {
             prev(autoPrev);
             var autoPrev = setInterval(function() {prev(autoPrev, autoNext);}, delay);
     
@@ -101,7 +101,7 @@
             stopBtn.prop('disabled', false);
         }
 
-        function nextAuto(autoPrev, autoNext) {
+        function nextAuto(autoPrev) {
             next(autoNext);
             var autoNext = setInterval(function() {next(autoPrev, autoNext);}, delay);
     
@@ -174,4 +174,3 @@
         });
     };
 })(jQuery);
-
