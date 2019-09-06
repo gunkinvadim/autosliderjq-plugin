@@ -93,7 +93,6 @@
         }
 
         function prevAuto(autoPrev, autoNext) {
-            action = 'autoprev';
             prev(autoPrev);
             var autoPrev = setInterval(function() {prev(autoPrev, autoNext);}, delay);
     
@@ -103,7 +102,6 @@
         }
 
         function nextAuto(autoPrev, autoNext) {
-            action = 'autonext';
             next(autoNext);
             var autoNext = setInterval(function() {next(autoPrev, autoNext);}, delay);
     
@@ -113,6 +111,7 @@
         }
 
         if (isAuto) {
+            action = 'autonext';
             nextAuto();
         }
         
@@ -164,9 +163,11 @@
                 next();
         
             } else if (buttonAction == 'prev-auto') {
+                action = 'autoprev';
                 prevAuto();
         
             } else if (buttonAction == 'next-auto') {
+                action = 'autonext';
                 nextAuto();
         
             }
