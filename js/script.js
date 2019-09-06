@@ -1,14 +1,14 @@
 $(function() {
 
-    $('.gallery-1').mySlider({
-        i: 2
-    });
+    $('.gallery-1').mySlider();
 
     $('.gallery-2').mySlider({
-        i: 0,
+        show: 0,
         auto: true,
         rate: 3000,
     });
 
-    $('.gallery-3').mySlider();
+    $('.gallery-3').mySlider({
+        show: 2
+    });
 });

@@ -9,7 +9,7 @@
             autoPrevBtn: '.button-action[data-action="prev-auto"]',
             images: '.photos img',
             delayInput: '.delay-input',
-            i: 0,
+            show: 0,
             rate: 3000,
             auto: false
         };
@@ -27,7 +27,7 @@
         var delayInput = $(slider.find(options.delayInput));
         
         var delay = options.rate || parseInt(delayInput.val() * 1000);
-        var i = options.i;
+        var i = options.show;
         var action = 'stop';
         var isRun = false;
         var isAuto = options.auto;
