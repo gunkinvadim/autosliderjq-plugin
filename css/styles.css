@@ -28,9 +28,9 @@ html, body, ul, li{
     border-radius: 5px;
 }
 
-.photos img:first-child{
+/* .photos img .active{
     display: block
-}
+} */
 
 .input-container {
     margin-top: 20px
