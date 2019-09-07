@@ -26,11 +26,18 @@
         var images = $(slider.find(options.images));
         var delayInput = $(slider.find(options.delayInput));
         
-        var delay = options.rate || parseInt(delayInput.val() * 1000);
         var i = options.show;
         var action = 'stop';
         var isRun = false;
         var isAuto = options.auto;
+
+        var delay;
+
+        if (isNaN(delayInput.val())) {
+            delay = options.rate;
+        } else {
+            delay = parseInt(delayInput.val() * 1000);
+        }
 
         images.eq(i).show();
 
