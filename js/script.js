@@ -5,7 +5,7 @@ $(function() {
     $('.gallery-2').mySlider({
         show: 0,
         auto: true,
-        rate: 1000
+        rate: 3000
     });
 
     $('.gallery-3').mySlider({

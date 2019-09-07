@@ -143,7 +143,7 @@
         
         
         delayInput.on('change', function() {
-            if (isNaN(delayInput.val()) == true || delayInput.val() < 1) {
+            if (isNaN(delayInput.val()) || delayInput.val() < 1) {
                 delayInput.val(1);
             }
             delay = parseInt(delayInput.val() * 1000);
